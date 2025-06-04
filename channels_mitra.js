@@ -36,8 +36,8 @@ const func = require('./channels_functions_mitra.js');
         if (!(await func.login(page))) throw new Error("No se pudo iniciar sesión");
         
         // Deshabilitar Unique SSID
-        await page.click('input[type="radio"][name="uniqueSSID"][value="0"]');
-        await page.click('button[value="Aplicar cambios"]');
+        await page.click('#Unique_SSID2');
+        await page.click('#accept_icon');
         await func.delay(2000);
         console.log("Unique SSID deshabilitado");
         
@@ -47,7 +47,7 @@ const func = require('./channels_functions_mitra.js');
         await func.delay(2000);
 
         // Obtener SSID y acceder a configuración avanzada
-        const ssidValue = await page.$eval('input.Input_box[type="text"]', el => el.value);
+        const ssidValue = await page.$eval('#ssidname', el => el.value);
         console.log("Filtre en inSSIDer por SSID:", ssidValue);
         await page.click('#pagemenu');
         if (!(await func.navigateToAdvancedSettings(page))) throw new Error("No se pudo acceder a configuración avanzada");

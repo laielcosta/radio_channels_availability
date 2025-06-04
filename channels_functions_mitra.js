@@ -68,7 +68,8 @@ async function navigateToDeviceWebPage(page) {
 
 async function navigateToAdvancedSettings(page) {
     try {
-        await page.click('li[href="me_configuracion_avanzada.asp"]');
+        await page.waitForSelector('a[href="/cgi-bin/Aviso.cgi"]', { visible: true });
+        await page.click('a[href="/cgi-bin/Aviso.cgi"]');
         console.log("Intentando acceder a la configuración avanzada...");
         await delay(2000);
         await page.click('input[type="button"][value="Aceptar"]');
@@ -213,7 +214,7 @@ async function login(page) {
                 await dialog.accept();
                 loginSuccessful = !dialog.message().includes('incorrecta');
             } else {
-                await page.waitForSelector('#pagemenu', { timeout: 5000 });
+                await page.waitForSelector('#menu', { timeout: 5000 });
                 loginSuccessful = true;
             }
             console.log(loginSuccessful ? 'Inicio de sesión exitoso' : 'Contraseña incorrecta. Intente nuevamente.');
